@@ -5,10 +5,75 @@
       textInput   = $('#text').keypress(handleKeyPress),
       messageList = $('#messages'),
       socket      = new io.Socket(),
+      connected   = false,
+      poller      = null,
+      interval    = 1000;
       iframeCount = 0;
 
-  socket.connect();
+  socket.on('connect', handleSocketConnect);
   socket.on('message', handleSocketMessage);
+  socket.on('disconnect', handleSocketDisconnect);
+
+  startSocketPoller();
+  
+  function startSocketPoller () {
+    if (!connected) {
+      socket.connect();
+      if (!poller) {
+        poller = window.setTimeout(startSocketPoller, interval);
+      }
+    }
+  }
+
+  function stopSocketPoller () {
+    if (poller) {
+      window.clearTimeout(poller);
+      poller = null;
+    }
+  }
+
+  function handleSocketMessage (data) {
+    displayMessage(data);
+  }
+
+  function displayMessage (data) {
+    var name = 'message-' + iframeCount++;
+    $('<li/>')
+      .addClass('update message')
+      .append(
+        $('<span class="voice"/>').text(data.voice + ': '),
+        $('<a class="text"/>').attr({ href: data.file, target: name }).text(data.text)
+      )
+      .addToMessageList(function () {
+        $('<iframe/>').attr({ name: name, src: data.file }).appendTo(this);
+      });
+  }
+    
+  function handleSocketConnect () {
+    
+    stopSocketPoller();
+    connected = true;
+    
+    $('<li/>')
+      .addClass('update announcement connect')
+      .append(
+        $('<span class="text">You are now connected.</span>')
+      )
+      .addToMessageList();
+  }
+  
+  function handleSocketDisconnect () {
+
+    $('<li/>')
+      .addClass('update announcement disconnect')
+      .append(
+        $('<span class="text">You have been disconnected</span>')
+      )
+      .addToMessageList();
+
+      connected = false;
+      startSocketPoller();
+  }
 
   function handleKeyPress (evt) {
     if (evt.keyCode === 13) {
@@ -30,18 +95,8 @@
     });
   }
   
-  function handleSocketMessage (data) {
-    var name = 'message-' + iframeCount++;
-    $('<li/>')
-      .append(
-        $('<span class="voice"/>').text(data.voice + ': '),
-        $('<a class="text"/>').attr({ href: data.file, target: name }).text(data.text)
-      )
-      .prependTo(messageList)
-      .slideDown('fast')
-      .fadeIn('fast', function () {
-        $('<iframe/>').attr({ name: name, src: data.file }).appendTo(this);
-      });
-  }
+  $.fn.addToMessageList = function (callback) {
+    return this.prependTo(messageList).slideDown('fast').fadeIn('fast', callback);
+  };
   
 })(this, this.document, this.jQuery);

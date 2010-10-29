@@ -53,14 +53,22 @@ iframe {
 #messages li {
   margin:0.5em 0;
   padding:1em;
-  border:1px solid #ccc;
+  border-width:1px;
+  border-style:solid;
   -moz-border-radius:10px;
   -webkit-border-radius:10px;
   border-radius:10px;
-  background:#eee;
   display:none;
 }
-#messages .text {
+#messages li.message {
+  background:#eee;
+  border-color:#ccc;
+}
+#messages li.announcement {
+  background:#ffc;
+  border-color:#fc0;
+}
+#messages a.text {
   color:#00f;
   text-decoration:none;
 }
