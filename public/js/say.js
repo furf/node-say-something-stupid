@@ -1,6 +1,6 @@
 (function (window, document, $) {
 
-  var speakForm   = $('#sayForm').submit(handleFormSubmit),
+  var form        = $('#sayForm').submit(handleFormSubmit),
       voiceSelect = $('#voice'),
       textInput   = $('#text').keypress(handleKeyPress),
       messageList = $('#messages'),
@@ -13,7 +13,7 @@
   function handleKeyPress (evt) {
     if (evt.keyCode === 13) {
       evt.preventDefault();
-      speakForm.submit();
+      form.submit();
     }
   }
   
