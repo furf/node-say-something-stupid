@@ -32,11 +32,16 @@
   
   function handleSocketMessage (data) {
     var id = 'message-' + iframeCount++;
-    $('<li/>').append(
-      $('<span class="voice"/>').text(data.voice + ': '),
-      $('<a class="text"/>').attr({ href: data.file, target: id }).text(data.text),
-      $('<iframe/>').attr({ id: id, src: data.file })
-    ).prependTo(messageList);
+    $('<li/>')
+      .append(
+        $('<span class="voice"/>').text(data.voice + ': '),
+        $('<a class="text"/>').attr({ href: data.file, target: id }).text(data.text)
+      )
+      .prependTo(messageList)
+      .slideDown('fast')
+      .fadeIn('fast', function () {
+        $('<iframe/>').attr({ id: id, src: data.file }).appendTo(this);
+      });
   }
   
 })(this, this.document, this.jQuery);
