@@ -58,6 +58,7 @@ iframe {
   -webkit-border-radius:10px;
   border-radius:10px;
   background:#eee;
+  display:none;
 }
 #messages .text {
   color:#00f;

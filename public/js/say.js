@@ -31,16 +31,16 @@
   }
   
   function handleSocketMessage (data) {
-    var id = 'message-' + iframeCount++;
+    var name = 'message-' + iframeCount++;
     $('<li/>')
       .append(
         $('<span class="voice"/>').text(data.voice + ': '),
-        $('<a class="text"/>').attr({ href: data.file, target: id }).text(data.text)
+        $('<a class="text"/>').attr({ href: data.file, target: name }).text(data.text)
       )
       .prependTo(messageList)
       .slideDown('fast')
       .fadeIn('fast', function () {
-        $('<iframe/>').attr({ id: id, src: data.file }).appendTo(this);
+        $('<iframe/>').attr({ name: name, src: data.file }).appendTo(this);
       });
   }
   
