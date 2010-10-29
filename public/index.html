@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+
+    <title>Say Something Stupid</title>
+
+    <!--[if IE]><script type="text/javascript" charset="utf-8">/*@cc_on'abbr article aside audio canvas details figcaption figure footer header hgroup mark menu meter nav output progress section summary time video'.replace(/\w+/g,function(n){document.createElement(n)})@*/</script><![endif]-->
+    
+    <link rel="stylesheet" href="/css/say.css">
+    
+  </head>
+  <body>
+
+    <div id="container">
+
+      <header>
+        <h1>Say Something Stupid</h1>
+      </header>
+
+      <form id="sayForm">
+        <fieldset>
+          <div class="form-row form-row-input">
+            <label for="voice">Voice:</label>
+            <select name="voice" id="voice">
+              <optgroup label="Male">
+                <option>Alex</option>
+                <option>Bruce</option>
+                <option>Fred</option>
+                <option>Junior</option>
+                <option>Ralph</option>
+              </optgroup>
+              <optgroup label="Female">
+                <option>Agnes</option>
+                <option>Kathy</option>
+                <option>Princess</option>
+                <option>Vicki</option>
+                <option>Victoria</option>
+              </optgroup>
+              <optgroup label="Novelty">
+                <option>Albert</option>
+                <option>Bad News</option>
+                <option>Bahh</option>
+                <option>Bells</option>
+                <option>Boing</option>
+                <option>Bubbles</option>
+                <option>Cellos</option>
+                <option>Deranged</option>
+                <option>Good News</option>
+                <option>Hysterical</option>
+                <option>Pipe Organ</option>
+                <option>Trinoids</option>
+                <option>Whisper</option>
+                <option>Zarvox</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-row form-row-input">
+            <label for="text">Text:</label>      
+            <textarea id="text" rows="3"></textarea>
+          </div>
+        </fieldset>
+      </form>
+
+      <ul id="messages"></ul>
+      
+    </div>
+
+    <script src="/js/jquery-1.4.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/socket.io.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/say.js" type="text/javascript" charset="utf-8"></script>
+
+  </body>
+</html>
