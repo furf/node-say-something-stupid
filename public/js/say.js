@@ -17,19 +17,17 @@
   startSocketPoller();
   
   function startSocketPoller () {
+    console.log('startSocketPoller');
     if (!connected) {
       socket.connect();
-      if (!poller) {
-        poller = window.setTimeout(startSocketPoller, interval);
-      }
+      poller = window.setTimeout(startSocketPoller, interval);
     }
   }
 
   function stopSocketPoller () {
-    if (poller) {
-      window.clearTimeout(poller);
-      poller = null;
-    }
+    console.log('stopSocketPoller');
+    window.clearTimeout(poller);
+    poller = 0;
   }
 
   function handleSocketMessage (data) {
