@@ -17,7 +17,6 @@
   startSocketPoller();
   
   function startSocketPoller () {
-    console.log('startSocketPoller');
     if (!connected) {
       socket.connect();
       poller = window.setTimeout(startSocketPoller, interval);
@@ -25,7 +24,6 @@
   }
 
   function stopSocketPoller () {
-    console.log('stopSocketPoller');
     window.clearTimeout(poller);
     poller = 0;
   }
